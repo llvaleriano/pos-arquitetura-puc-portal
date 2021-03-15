@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-        <span class="logo-img"></span>
-        <span class="navbar-title">Portal</span> <span class="navbar-version">{{ version }}</span>
+        <span class="navbar-title">SGM - Sistema de Gestão Municipal</span>
+        <span class="navbar-subtitle">Prefeitura de Bom Destino - MG</span>
     </a>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
@@ -12,7 +12,7 @@
                 <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon="home"></fa-icon>
-                        <span>Home</span>
+                        <span>Inicio</span>
                     </span>
                 </a>
             </li>
@@ -27,6 +27,24 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+                    <li>
+                        <a class="dropdown-item" routerLink="cidadao" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                            <span>Cidadao</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="telefone" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                            <span>Telefone</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="endereco" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+                            <span>Endereco</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
@@ -88,7 +106,7 @@
                     <span *ngIf="!getImageUrl()">
                         <fa-icon icon="user"></fa-icon>
                         <span>
-                            Account
+                            Minha conta
                         </span>
                     </span>
                     <span *ngIf="getImageUrl()">
@@ -99,31 +117,31 @@
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-                            <span>Settings</span>
+                            <span>Configurações</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="account/password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
-                            <span>Password</span>
+                            <span>Senha</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
                         <a class="dropdown-item" (click)="logout()" id="logout">
                             <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
-                            <span>Sign out</span>
+                            <span>Sair</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" (click)="login()" id="login">
                             <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
-                            <span>Sign in</span>
+                            <span>Login</span>
                         </a>
                     </li>
                     <li *ngSwitchCase="false">
                         <a class="dropdown-item" routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
-                            <span>Register</span>
+                            <span>Registrar</span>
                         </a>
                     </li>
                 </ul>

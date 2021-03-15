@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-telefone-heading">Create or edit a Telefone</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ddd">Ddd</label>
+                    <input type="text" class="form-control" name="ddd" id="field_ddd"
+                           formControlName="ddd"/>
+                    <div *ngIf="editForm.get('ddd')!.invalid && (editForm.get('ddd')!.dirty || editForm.get('ddd')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ddd')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numero">Numero</label>
+                    <input type="text" class="form-control" name="numero" id="field_numero"
+                           formControlName="numero"/>
+                    <div *ngIf="editForm.get('numero')!.invalid && (editForm.get('numero')!.dirty || editForm.get('numero')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('numero')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cidadao">Cidadao</label>
+                    <select class="form-control" id="field_cidadao" name="cidadao" formControlName="cidadao">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cidadaoOption.id === editForm.get('cidadao')!.value?.id ? editForm.get('cidadao')!.value : cidadaoOption" *ngFor="let cidadaoOption of cidadaos; trackBy: trackById">{{ cidadaoOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

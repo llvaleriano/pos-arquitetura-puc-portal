@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span>Telefones</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-telefone" [routerLink]="['/telefone/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Telefone
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="telefones?.length === 0">
+        <span>No telefones found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="telefones && telefones.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Ddd</span></th>
+                    <th scope="col" ><span>Numero</span></th>
+                    <th scope="col" ><span>Cidadao</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let telefone of telefones ;trackBy: trackId">
+                    <td><a [routerLink]="['/telefone', telefone.id, 'view']">{{ telefone.id }}</a></td>
+                    <td>{{ telefone.ddd }}</td>
+                    <td>{{ telefone.numero }}</td>
+                    <td>
+                        <div *ngIf="telefone.cidadao">
+                            <a [routerLink]="['/cidadao', telefone.cidadao?.id, 'view']" >{{ telefone.cidadao?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/telefone', telefone.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/telefone', telefone.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(telefone)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

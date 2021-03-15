@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cidadao">
+            <h2><span>Cidadao</span> {{ cidadao.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nome</span></dt>
+                <dd>
+                    <span>{{ cidadao.nome }}</span>
+                </dd>
+                <dt><span>Sexo</span></dt>
+                <dd>
+                    <span>{{ cidadao.sexo }}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{ cidadao.email }}</span>
+                </dd>
+                <dt><span>Nascimento</span></dt>
+                <dd>
+                    <span>{{ cidadao.nascimento }}</span>
+                </dd>
+                <dt><span>Endereco</span></dt>
+                <dd>
+                    <div *ngIf="cidadao.endereco">
+                        <a [routerLink]="['/endereco', cidadao.endereco?.id, 'view']">{{ cidadao.endereco?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cidadao', cidadao.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
