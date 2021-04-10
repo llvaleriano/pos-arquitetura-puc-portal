@@ -8,8 +8,10 @@ import { map } from 'rxjs/operators';
 
 import { ICidadao, Cidadao } from 'app/shared/model/cidadao.model';
 import { CidadaoService } from './cidadao.service';
-import { IEndereco } from 'app/shared/model/endereco.model';
+import {Endereco, IEndereco} from 'app/shared/model/endereco.model';
+import {Telefone, ITelefone} from 'app/shared/model/telefone.model';
 import { EnderecoService } from 'app/entities/endereco/endereco.service';
+import {logsRoute} from "../../admin/logs/logs.route";
 
 @Component({
   selector: 'jhi-cidadao-update',
@@ -26,12 +28,18 @@ export class CidadaoUpdateComponent implements OnInit {
     sexo: [],
     email: [null, [Validators.required]],
     nascimento: [],
-    endereco: [],
+    ddd: [],
+    numeroTelefone: [],
+    cep: [],
+    logradouro: [],
+    complemento: [],
+    bairro: [],
+    cidade: [],
+    estado: []
   });
 
   constructor(
     protected cidadaoService: CidadaoService,
-    protected enderecoService: EnderecoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -39,28 +47,6 @@ export class CidadaoUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ cidadao }) => {
       this.updateForm(cidadao);
-
-      this.enderecoService
-        .query({ filter: 'cidadao-is-null' })
-        .pipe(
-          map((res: HttpResponse<IEndereco[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: IEndereco[]) => {
-          if (!cidadao.endereco || !cidadao.endereco.id) {
-            this.enderecos = resBody;
-          } else {
-            this.enderecoService
-              .find(cidadao.endereco.id)
-              .pipe(
-                map((subRes: HttpResponse<IEndereco>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: IEndereco[]) => (this.enderecos = concatRes));
-          }
-        });
     });
   }
 
@@ -90,6 +76,22 @@ export class CidadaoUpdateComponent implements OnInit {
   }
 
   private createFromForm(): ICidadao {
+    const endereco = {
+      ...new Endereco(),
+      cep: this.editForm.get(['cep'])!.value,
+      logradouro: this.editForm.get(['logradouro'])!.value,
+      complemento: this.editForm.get(['complemento'])!.value,
+      bairro: this.editForm.get(['bairro'])!.value,
+      cidade: this.editForm.get(['cidade'])!.value,
+      estado: this.editForm.get(['estado'])!.value,
+    };
+
+    const telefone = {
+      ...new Telefone(),
+      ddd: this.editForm.get(['ddd'])!.value,
+      numeroTelefone: this.editForm.get(['numeroTelefone'])!.value,
+    };
+
     return {
       ...new Cidadao(),
       id: this.editForm.get(['id'])!.value,
@@ -97,7 +99,7 @@ export class CidadaoUpdateComponent implements OnInit {
       sexo: this.editForm.get(['sexo'])!.value,
       email: this.editForm.get(['email'])!.value,
       nascimento: this.editForm.get(['nascimento'])!.value,
-      endereco: this.editForm.get(['endereco'])!.value,
+      endereco: endereco,
     };
   }
 

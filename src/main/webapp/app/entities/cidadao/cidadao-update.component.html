@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-cidadao-heading">Create or edit a Cidadao</h2>
+            <h2 id="jhi-cidadao-heading">Cadastro do Cidadão</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -18,57 +18,135 @@
                     <div *ngIf="editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('nome')?.errors?.required">
-                        This field is required.
+                        Campo obrigatório.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_sexo">Sexo</label>
-                    <select class="form-control" name="sexo" formControlName="sexo" id="field_sexo">
-                        <option value="MASCULINO">MASCULINO</option>
-                        <option value="FEMININO">FEMININO</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" for="field_email">Email</label>
+                    <label class="form-control-label" for="field_email">E-mail</label>
                     <input type="text" class="form-control" name="email" id="field_email"
                            formControlName="email"/>
                     <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('email')?.errors?.required">
-                        This field is required.
+                        Campo obrigatório.
                         </small>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_nascimento">Nascimento</label>
-                    <div class="input-group">
-                        <input id="field_nascimento" type="text" class="form-control" name="nascimento" ngbDatepicker #nascimentoDp="ngbDatepicker" formControlName="nascimento"/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="nascimentoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
-                        </span>
+                <div class="col-md-12" style="display: inline-flex; padding: 0">
+                    <div class="form-group col-md-6" style="padding-left: 0;">
+                        <label class="form-control-label" for="field_sexo">Sexo</label>
+                        <select class="form-control" name="sexo" formControlName="sexo" id="field_sexo">
+                            <option value="MASCULINO">Masculino</option>
+                            <option value="FEMININO">Feminino</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-6" style="padding-right: 0;">
+                        <label class="form-control-label" for="field_nascimento">Nascimento</label>
+                        <div class="input-group">
+                            <input id="field_nascimento" type="text" class="form-control" name="nascimento" ngbDatepicker #nascimentoDp="ngbDatepicker" formControlName="nascimento"/>
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="nascimentoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_endereco">Endereco</label>
-                    <select class="form-control" id="field_endereco" name="endereco" formControlName="endereco">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="enderecoOption.id === editForm.get('endereco')!.value?.id ? editForm.get('endereco')!.value : enderecoOption" *ngFor="let enderecoOption of enderecos; trackBy: trackById">{{ enderecoOption.id }}</option>
-                    </select>
-                </div>
+                <!-- Telefone -->
+                <fieldset>
+                    <legend>Telefone</legend>
+                    <div class="col-md-12" style="display: inline-flex; padding: 0">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" for="field_ddd">DDD</label>
+                            <input type="text" class="form-control" name="ddd" id="field_ddd" formControlName="ddd"/>
+                            <div *ngIf="editForm.get('ddd')!.invalid && (editForm.get('ddd')!.dirty || editForm.get('ddd')!.touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('ddd')?.errors?.required">
+                                    Campo obrigatório.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" for="field_numeroTelefone">Número</label>
+                            <input type="text" class="form-control" name="numero" id="field_numeroTelefone" formControlName="numeroTelefone"/>
+                            <div *ngIf="editForm.get('numeroTelefone')!.invalid && (editForm.get('numeroTelefone')!.dirty || editForm.get('numeroTelefone')!.touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('numeroTelefone')?.errors?.required">
+                                    Campo obrigatório.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Endereço -->
+                <fieldset>
+                    <legend>Endereço</legend>
+                    <div class="col-md-12" style="display: inline-flex; padding: 0">
+                        <div class="form-group col-md-2">
+                            <label class="form-control-label" for="field_cep">Cep</label>
+                            <input type="text" class="form-control" name="cep" id="field_cep"
+                                   formControlName="cep"/>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" for="field_logradouro">Logradouro</label>
+                            <input type="text" class="form-control" name="logradouro" id="field_logradouro"
+                                   formControlName="logradouro"/>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" for="field_complemento">Complemento</label>
+                            <input type="text" class="form-control" name="complemento" id="field_complemento"
+                                   formControlName="complemento"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="display: inline-flex; padding: 0">
+                        <div class="form-group col-md-5">
+                            <label class="form-control-label" for="field_bairro">Bairro</label>
+                            <input type="text" class="form-control" name="bairro" id="field_bairro"
+                                   formControlName="bairro"/>
+                        </div>
+
+                        <div class="form-group col-md-5">
+                            <label class="form-control-label" for="field_cidade">Cidade</label>
+                            <input type="text" class="form-control" name="cidade" id="field_cidade" formControlName="cidade"/>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label class="form-control-label" for="field_estado">Estado</label>
+                            <select class="form-control" name="estado" formControlName="estado" id="field_estado">
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                            </select>
+                        </div>
+                    </div>
+
+            <!--                    <div class="form-group">
+                                    <label class="form-control-label" for="field_endereco">Endereço</label>
+                                    <select class="form-control" id="field_endereco" name="endereco" formControlName="endereco">
+                                        <option [ngValue]="null"></option>
+                                        <option [ngValue]="enderecoOption.id === editForm.get('endereco')!.value?.id ? editForm.get('endereco')!.value : enderecoOption" *ngFor="let enderecoOption of enderecos; trackBy: trackById">{{ enderecoOption.id }}</option>
+                                    </select>
+                                </div>-->
+                </fieldset>
             </div>
 
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
                 </button>
 
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
                 </button>
             </div>
         </form>
