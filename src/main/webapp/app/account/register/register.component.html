@@ -1,26 +1,26 @@
 <div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1>Registration</h1>
+            <h1>Criar conta</h1>
 
             <div class="alert alert-success" *ngIf="success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+                <strong>Conta criada!</strong> Por favor verifique seu e-mail para confirmação.
             </div>
 
             <div class="alert alert-danger" *ngIf="error">
-                <strong>Registration failed!</strong> Please try again later.
+                <strong>Erro ao criar conta!</strong> Tente novamente.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
+                <strong>Usuário já registrado!</strong> Escolha outro.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorEmailExists">
-                <strong>Email is already in use!</strong> Please choose another one.
+                <strong>Email já registrado!</strong> Escolha outro.
             </div>
 
             <div class="alert alert-danger" *ngIf="doNotMatch">
-                The password and its confirmation do not match!
+                A senha e a confirmação da senha precisam ser iguais!
             </div>
         </div>
     </div>
@@ -29,80 +29,80 @@
         <div class="col-md-8">
             <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
                 <div class="form-group">
-                    <label class="form-control-label" for="login">Username</label>
-                    <input type="text" class="form-control" id="login" name="login" placeholder="Your username"
+                    <label class="form-control-label" for="login">Usuário</label>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="usuário"
                            formControlName="login" #login>
 
                     <div *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('login')?.errors?.required">
-                            Your username is required.
+                            Usuário é obrigatório.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('login')?.errors?.minlength">
-                            Your username is required to be at least 1 character.
+                            Usuário é obrigatório e precisa de ter no mínimo 1 caracter.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('login')?.errors?.maxlength">
-                            Your username cannot be longer than 50 characters.
+                            Usuário não pode ter mais de 50 caracteres.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('login')?.errors?.pattern">
-                            Your username can only contain letters and digits.
+                            Usuário śo pode conter letras e dígitos.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Your email"
+                    <input type="email" class="form-control" id="email" name="email" placeholder="email"
                              formControlName="email">
 
                     <div *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('email')?.errors?.required">
-                            Your email is required.
+                            Email é obrigatório.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('email')?.errors?.invalid">
-                            Your email is invalid.
+                            Email inválido.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('email')?.errors?.minlength">
-                            Your email is required to be at least 5 characters.
+                            Email é obrigatório e deve ter no mínimo 5 caracteres.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('email')?.errors?.maxlength">
-                            Your email cannot be longer than 100 characters.
+                            Email não pode ter mais de 100 caracteres.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="password">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="New password"
+                    <label class="form-control-label" for="password">Senha</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="senha"
                             formControlName="password">
 
                     <div *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('password')?.errors?.required">
-                            Your password is required.
+                            Senha é obrigatória.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('password')?.errors?.minlength">
-                            Your password is required to be at least 4 characters.
+                            Senha é obrigatória e deve ter no mínimo 4 caracteres.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('password')?.errors?.maxlength">
-                            Your password cannot be longer than 50 characters.
+                            Senha não pode ter mais de 50 caracteres.
                         </small>
                     </div>
 
@@ -110,35 +110,31 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="confirmPassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm the new password"
+                    <label class="form-control-label" for="confirmPassword">Confirmação de senha</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirmação"
                             formControlName="confirmPassword">
 
                     <div *ngIf="registerForm.get('confirmPassword')!.invalid && (registerForm.get('confirmPassword')!.dirty || registerForm.get('confirmPassword')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('confirmPassword')?.errors?.required">
-                            Your confirmation password is required.
+                            Confirmação de senha é obrigatória.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('confirmPassword')?.errors?.minlength">
-                            Your confirmation password is required to be at least 4 characters.
+                            Confirmação de senha é obrigatória e deve ter no mínimo 4 caracteres.
                         </small>
 
                         <small class="form-text text-danger"
                                *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength">
-                            Your confirmation password cannot be longer than 50 characters.
+                            Confirmação de senha não pode ter mais de 50 caracteres.
                         </small>
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Register</button>
+                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Criar conta</button>
             </form>
 
-            <div class="mt-3 alert alert-warning">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="openLogin()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
         </div>
     </div>
 </div>

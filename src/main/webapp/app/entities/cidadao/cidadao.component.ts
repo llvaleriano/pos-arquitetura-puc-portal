@@ -5,6 +5,7 @@ import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ICidadao } from 'app/shared/model/cidadao.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { CidadaoService } from './cidadao.service';
@@ -23,11 +24,16 @@ export class CidadaoComponent implements OnInit, OnDestroy {
   predicate: string;
   ascending: boolean;
 
+  filterForm = this.fb.group({
+    filter: []
+  });
+
   constructor(
     protected cidadaoService: CidadaoService,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
-    protected parseLinks: JhiParseLinks
+    protected parseLinks: JhiParseLinks,
+    private fb: FormBuilder
   ) {
     this.cidadaos = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -47,6 +53,23 @@ export class CidadaoComponent implements OnInit, OnDestroy {
         sort: this.sort(),
       })
       .subscribe((res: HttpResponse<ICidadao[]>) => this.paginateCidadaos(res.body, res.headers));
+  }
+
+  doFilter(): void {
+    this.cidadaos = [];
+    const filterValue = this.filterForm.get(['filter'])!.value;
+    console.log("Filtrando cidadãos. Filtro: " + filterValue);
+    this.cidadaoService
+      .search({
+        query: filterValue,
+        page: this.page,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe((res: HttpResponse<ICidadao[]>) => {
+        this.paginateCidadaos(res.body, res.headers);
+        this.registerChangeInCidadaos();
+      });
   }
 
   reset(): void {

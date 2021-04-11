@@ -99,7 +99,7 @@ export class CidadaoUpdateComponent implements OnInit {
       sexo: this.editForm.get(['sexo'])!.value,
       email: this.editForm.get(['email'])!.value,
       nascimento: this.editForm.get(['nascimento'])!.value,
-      endereco: endereco,
+      endereco,
     };
   }
 

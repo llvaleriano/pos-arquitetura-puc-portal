@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<ICidadao[]>;
 @Injectable({ providedIn: 'root' })
 export class CidadaoService {
   public resourceUrl = SERVER_API_URL + 'services/cidadao/api/cidadaos';
+  public searchUrl = SERVER_API_URL + 'services/cidadao/api/_search/cidadaos';
 
   constructor(protected http: HttpClient) {}
 
@@ -42,6 +43,13 @@ export class CidadaoService {
     const options = createRequestOption(req);
     return this.http
       .get<ICidadao[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  search(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ICidadao[]>(this.searchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
